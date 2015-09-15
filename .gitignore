@@ -1,0 +1,13 @@
+# Logs
+logs
+*.log
+
+#public folder
+public
+
+#cloud9 folder
+.c9
+
+# Dependency directory
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
+node_modules
