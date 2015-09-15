@@ -1,11 +1,12 @@
 var express = require('express');
 var _ = require('lodash');
-
+var userController = require('../controllers/userController');
 //var Header = require('../../public/assets/header.server');
 var App = require('../../public/assets/app.server');
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
     
+    app.post('/login', userController.postLogin);
     /*app.get('/', function(req, res, next){
         var x = 'te';
         next();
@@ -20,8 +21,9 @@ module.exports = function(app) {
           TopicStore: { topics: topicmap},
           UserStore: { user: user }
         };*/
+        var isAuthenticated = req.user ? true : false;
         res.locals.data =  {
-          UserStore: { user: 'Tom' }
+          UserStore: { user: {name: 'Tom', authenticated: isAuthenticated} }
         };
         next();
     });

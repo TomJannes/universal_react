@@ -9,7 +9,7 @@ class Hello extends React.Component{
     
     render(){
         return (
-            <p>Hello {this.state.user}</p>  
+            <p>Hello {this.state.user.get('name')}</p>  
         );
     }
 }

@@ -1,10 +1,12 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
 var path = require('path');
 var methodOverride = require('method-override');
 
 
-module.exports = function (app) {
+module.exports = function (app, passport) {
   app.set('port', (process.env.PORT || 3000));
 
   // X-Powered-By header has no functional value.
@@ -14,6 +16,27 @@ module.exports = function (app) {
   app.set('views', path.join(__dirname, '..', 'views'));
 
   app.set('view cache', false);
+  
+  app.use(cookieParser());
+  
+  var sessionConfig = {
+    resave: true,
+    saveUninitialized: true,
+    // Use generic cookie name for security purposes
+    key: 'sessionId',
+    secret: 'wooo secret shizzles here',
+    // Add HTTPOnly, Secure attributes on Session Cookie
+    // If secure is set, and you access your site over HTTP, the cookie will not be set
+    cookie: {
+      httpOnly: true
+    },
+    //store: new MongoStore({ url: secrets.db, autoReconnect: true})
+  };
+  
+  app.use(session(sessionConfig));
+  
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true})); // for parsing application/x-www-form-urlencoded
