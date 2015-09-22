@@ -6,11 +6,21 @@ var App = require('../../public/assets/app.server');
 
 module.exports = function(app, passport) {
     
+    //identity redirect
+    //redirect to the identity authentication
+    //app.get('/auth/identity', passport.authenticate('identity', {scope: 'universal_react', callbackURL: 'http://www.google.be'}));
+    app.get('/auth/identity', 
+        function(req, res, next) {
+            passport.authenticate('identity', {scope: 'universal_react', callbackURL: '/auth/identity/callback?redirect=' + req.query.redirect})(req, res, next);
+        }
+    );
+    
+    app.get('/auth/identity/callback', passport.authenticate('identity'), function(req, res){
+        //todo: add cookie or something
+        res.redirect(req.query.redirect);
+    });
+    
     app.post('/login', userController.postLogin);
-    /*app.get('/', function(req, res, next){
-        var x = 'te';
-        next();
-    })*/
 
     // Retrieves all topics on any endpoint for demonstration purposes
     // If you were indeed doing this in production, you should instead only

@@ -5,14 +5,12 @@ import App from './components/App';
 import Hello from './components/Hello';
 import Test from './components/Test';
 import Login from './components/Login';
-//import HelloWorld from './components/HelloWorld';
-//import HelloPlanet from './components/HelloPlanet';
 
 import UserStore from './stores/UserStore';
 
 function requireAuth(nextState, transition) {
   if (!UserStore.getState().user.get('authenticated')) {
-    transition({ nextPathname: nextState.location.pathname }, '/login', null);
+    transition({ nextPathname: nextState.location.pathname }, '/login?redirect=' + nextState.location.pathname, null);
   }
 }
 

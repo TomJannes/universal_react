@@ -1,5 +1,5 @@
 /* Initializing passport.js */
-var local = require('./passport/local');
+var identity = require('./passport/identity');
 
 module.exports = function(app, passport) {
   // serialize sessions
@@ -16,5 +16,5 @@ module.exports = function(app, passport) {
     
   });
 
-  passport.use(local);
+  passport.use(identity);
 };
