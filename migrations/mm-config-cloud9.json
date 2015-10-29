@@ -1,0 +1,7 @@
+{
+  "host": "tomj-universal_react-1888542",
+  "port": "27017",
+  "db": "universal_react",
+  "collection": "migrations",
+  "directory": "./migrations"
+}

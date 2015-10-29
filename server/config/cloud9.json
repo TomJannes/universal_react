@@ -1,0 +1,11 @@
+{
+  "connectionstring": "mongodb://tomj-universal_react-1888542:27017/universal_react",
+  "client": {
+    "id": "ljvSib9e",
+    "secret": "0hsysJIyZgdInXIF580N"
+  },
+  "authorization": {
+    "serverurl": "https://implicit-auth-tomj.c9.io",
+    "callbackurl": "https://universal-react-tomj.c9.io/callback"
+  }
+}

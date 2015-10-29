@@ -4,6 +4,7 @@ var passport = require('passport');
 var app = express();
 
 // Bootstrap application settings
+require('./config/mongo')();
 require('./config/passport')(app, passport);
 require('./config/express')(app, passport);
 

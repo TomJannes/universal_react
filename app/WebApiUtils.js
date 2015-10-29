@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import CookieHelper from './CookieHelper';
 
 const WebApiUtils = {
     get: (url, data) => {
@@ -14,9 +15,18 @@ const WebApiUtils = {
             url: url,
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify(data)
+            data: JSON.stringify(data),
+            beforeSend: function (xhr) {
+                let access_token = CookieHelper.getCookie('access_token');
+                if(access_token){
+                    xhr.setRequestHeader('Authorization', 'bearer ' + access_token); 
+                }
+            },
         });
-    }
-}
+    },
+    
+};
+
+
 
 export default WebApiUtils;

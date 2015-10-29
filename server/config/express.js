@@ -1,14 +1,16 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var cookieParser = require('cookie-parser');
+//var cookieParser = require('cookie-parser');
 var path = require('path');
 var methodOverride = require('method-override');
+var logger = require('morgan');
 
 
 module.exports = function (app, passport) {
   app.set('port', (process.env.PORT || 3000));
 
+  app.use(logger('dev'));
   // X-Powered-By header has no functional value.
   // Keeping it makes it easier for an attacker to build the site's profile
   // It can be removed safely
@@ -17,19 +19,19 @@ module.exports = function (app, passport) {
 
   app.set('view cache', false);
   
-  app.use(cookieParser());
+  //app.use(cookieParser());
   
   var sessionConfig = {
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     // Use generic cookie name for security purposes
-    key: 'sessionId',
+    //key: 'sessionId',
     secret: 'wooo secret shizzles here',
     // Add HTTPOnly, Secure attributes on Session Cookie
     // If secure is set, and you access your site over HTTP, the cookie will not be set
-    cookie: {
+    /*cookie: {
       httpOnly: true
-    },
+    },*/
     //store: new MongoStore({ url: secrets.db, autoReconnect: true})
   };
   
