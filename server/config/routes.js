@@ -88,6 +88,7 @@ global.__STYLE_COLLECTOR__ = '';
         App(JSON.stringify(res.locals.data || {}), req, res, function(data){
             var css = global.__STYLE_COLLECTOR__;
             data = data.replace("TITLE", "Parse title");
+            data = data.replace('META', '');
             data = data.replace('</head>', '<style id="css-style-collector-data">' + css + '</style></head>');
             res.contentType = "text/html; charset=utf8";
             

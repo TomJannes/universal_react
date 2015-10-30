@@ -4,6 +4,7 @@
 import React from 'react';
 import Iso from 'iso';
 import ReactDOM from 'react-dom';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 
@@ -17,6 +18,7 @@ let history = createBrowserHistory();
 
 Iso.bootstrap((state, _, container) => {
   alt.bootstrap(state);
+  injectTapEventPlugin();
   ReactDOM.render(<Router history={history} children={routes} />, container);
   var styleEl = document.getElementById('css-style-collector-data');
   if (styleEl) {

@@ -58,7 +58,18 @@ module.exports = [
     context: path.join(__dirname, "..", "app"),
     entry: {
       app: "./client",
-      common: ['react', 'react-router', 'react-dom', 'alt', 'immutable', 'jquery'],
+      common: [
+        'react', 
+        'react-router', 
+        'react-dom', 
+        'react-addons-create-fragment',
+        'react-addons-pure-render-mixin',
+        'react-addons-update',
+        'react-addons-transition-group',
+        'alt', 
+        'immutable', 
+        'jquery', 
+        'material-ui'],
     },
     output: {
       // The output directory as absolute path
@@ -81,7 +92,7 @@ module.exports = [
 			]),
       noParse: [
         //reactDOMPath,
-        'react/dist/react-with-addons.js',
+        //'react/dist/react-with-addons.js',
         'react-router/umd/ReactRouter.js',
         'alt/dist/alt-with-addons.js',
         'immutable/dist/immutable.js',
@@ -91,9 +102,9 @@ module.exports = [
     resolve: {
       extensions: ['', '.react.js', '.js', '.jsx', '.scss'],
       alias: {
-        'react-dom': reactDOMPath,
-        'react$': 'react/dist/react-with-addons.js',
-        'react/addons': 'react/dist/react-with-addons.js',
+        //'react-dom': reactDOMPath,
+        //'react$': 'react/dist/react-with-addons.js',
+        //'react/addons': 'react/dist/react-with-addons.js',
         'react-router': 'react-router/umd/ReactRouter.js',
       },
       modulesDirectories: [

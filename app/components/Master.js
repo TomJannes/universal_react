@@ -1,57 +1,93 @@
 import React from 'react';
+import AppCanvas from 'material-ui/lib/app-canvas';
+import AppBar from 'material-ui/lib/app-bar';
+import LeftNav from 'material-ui/lib/left-nav';
+import { MenuItem } from 'material-ui/lib/menu';
+import reactMixin from 'react-mixin';
+import { History, Navigation } from 'react-router'
+
+let menuItems = [
+        { route: '/', text: 'Home' },
+        { route: '/test', text: 'Test' },
+        { route: '/client', text: 'Client management' },
+        { route: '/user', text: 'User management' }/*,
+        { type: MenuItem.Types.SUBHEADER, text: 'Resources' },
+        {
+           type: MenuItem.Types.LINK,
+           payload: 'https://github.com/callemall/material-ui',
+           text: 'GitHub'
+        },
+        {
+           text: 'Disabled',
+           disabled: true
+        },
+        {
+           type: MenuItem.Types.LINK,
+           payload: 'https://www.google.com',
+           text: 'Disabled Link',
+           disabled: true
+        },*/
+      ];
 
 class Master extends React.Component{
+    constructor(props, context){
+      super(props, context);
+      this.onToggleLeftNav = this.onToggleLeftNav.bind(this);
+      this.onLeftNavChange = this.onLeftNavChange.bind(this);
+      this.getSelectedIndex = this.getSelectedIndex.bind(this);
+    }
     componentWillMount() {
       require('./Master.css');
     }
+    
+    onToggleLeftNav(e) {
+      this.refs.leftNav.toggle();
+    }
+    
+    onLeftNavChange(e, key, payload) {
+      e.preventDefault();
+      this.context.history.pushState(null, payload.route, null);
+    }
+    
+    getSelectedIndex() {
+      let currentItem;
+      for(let i = menuItems.length - 1; i >= 0; i--) {
+        currentItem = menuItems[i];
+        if (currentItem.route && this.context.history.isActive(currentItem.route, null, true)) {
+          return i;
+        }
+      }
+    }
+    
     render(){
         return(
-            <div id="wrapper">
-                <div id="header">Hello from header</div>
-                <div id="content">Hello from content</div>
-                <div id="footer">Hello from footer</div>
-            </div>
-            
-            
+            <AppCanvas>
+              <div id="wrapper">
+                  <div id="header">
+                    <AppBar
+                      title="Title"
+                      iconClassNameRight="muidocs-icon-navigation-expand-more"
+                      onLeftIconButtonTouchTap={ this.onToggleLeftNav }/>
+                  </div>
+                  <div id="content">
+                    <LeftNav ref="leftNav" 
+                      docked={false} 
+                      menuItems={menuItems} 
+                      selectedIndex={this.getSelectedIndex()}
+                      onChange={this.onLeftNavChange} />
+                    {this.props.children}
+                  </div>
+                  <div id="footer">Hello from footer</div>
+              </div>
+            </AppCanvas>
         );
     }
 }
+
+Master.contextTypes = {
+  location: React.PropTypes.object
+};
+
+reactMixin.onClass(Master, History);
 
 export default Master;
-/*import View from 'react-flexgrid';
-
-class Master extends React.Component{
-    render(){
-        return(
-            <View column className="border" height="70vh">
-                <View row>
-                  <View column>Twice the size of the others, the width is set without a unit.</View>
-                  <View column width="100px" className="red">100px</View>
-                  <View column>other 1</View>
-                  <View row auto>
-                    <View column width="50px" className="green">50px</View>
-                    <View column width="50px" className="green">50px</View>
-                  </View>
-                </View>
-                <View row>
-                  <View auto row>
-                    <View column width="100px"><View className="red">Left</View></View>
-                    <View column width="100px"><View className="red">Left</View></View>
-                  </View>
-                  <View row className="green">All the place in the world</View>
-                </View>
-                <View column height="200px">
-                  <View column auto>
-                    <View className="green" height="20px">Green</View>
-                    <View className="red" height="20px">Red</View>
-                  </View>
-                  <View className="green">All the rest</View>
-                </View>
-            </View>
-        );
-    }
-}
-
-export default Master;*/
-
-
