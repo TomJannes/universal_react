@@ -10,6 +10,6 @@ require('./config/express')(app, passport);
 
 require('./config/routes')(app, passport);
 
-app.listen(app.get('port'), function(){
-    console.log('Server started on port ' + app.get('port'));
+app.listen(process.env.PORT, process.env.IP, function(){
+  console.log('Server started on port ' + process.env.PORT);
 });

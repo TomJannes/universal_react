@@ -1,0 +1,15 @@
+{
+  "connectionstring": "mongodb://127.0.0.1:27017/universal_react",
+  "client": {
+    "id": "ljvSib9e",
+    "secret": "0hsysJIyZgdInXIF580N"
+  },
+  "authorization": {
+    "serverurl": "http://mycontainer-141966.nitrousapp.com:8080/",
+    "callbackurl": "http://mycontainer-141966.nitrousapp.com/callback"
+  },
+  "server": {
+    "ip": "0.0.0.0",
+    "port": "3000"
+  }
+}

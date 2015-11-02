@@ -5,10 +5,16 @@ var session = require('express-session');
 var path = require('path');
 var methodOverride = require('method-override');
 var logger = require('morgan');
+var config = require('config');
 
 
 module.exports = function (app, passport) {
-  app.set('port', (process.env.PORT || 3000));
+  if (config.has('server.port')) {
+    process.env.PORT = config.get('server.port');
+  }
+  if (config.has('server.ip')) {
+    process.env.IP = config.get('server.ip');
+  }
 
   app.use(logger('dev'));
   // X-Powered-By header has no functional value.
@@ -18,9 +24,9 @@ module.exports = function (app, passport) {
   app.set('views', path.join(__dirname, '..', 'views'));
 
   app.set('view cache', false);
-  
+
   //app.use(cookieParser());
-  
+
   var sessionConfig = {
     resave: false,
     saveUninitialized: true,
@@ -34,9 +40,9 @@ module.exports = function (app, passport) {
     },*/
     //store: new MongoStore({ url: secrets.db, autoReconnect: true})
   };
-  
+
   app.use(session(sessionConfig));
-  
+
   app.use(passport.initialize());
   app.use(passport.session());
 
